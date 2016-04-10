@@ -142,7 +142,6 @@ def get_payment_total(meal_price, tip_percentage=15):
         >>>get_payment_total(36.98, 20)
 
     """
-    total_price = 0
     # if a tip percentage order other than the default 15% was entered
     if tip_percentage != 15:
         # convert to decimal so multiplication works appropriately
@@ -150,14 +149,14 @@ def get_payment_total(meal_price, tip_percentage=15):
         # to get the full price of a meal,
         # add the meal price before tip
         # to the price of the tip
-        total price = meal_price + (meal_price * tip_percentage)
+        meal_price = meal_price + (meal_price * tip_percentage)
     else:
         # 15% is the default
-        total_price = meal_price * 1.15
+        meal_price = meal_price * 1.15
 
-    return total_price
+    return '{:0,.2f}'.format(meal_price)
 
-print get_payment_total(36.98, 20)
+print get_payment_total(36.98)
 
 # 9. Write a function that takes an integer as an argument and
 #    returns two pieces of information as strings ---
@@ -197,3 +196,12 @@ print get_payment_total(36.98, 20)
 # 4. Turn the block of code from the directions into a function. This
 #    function will take a number and append it to *numbers*. It doesn't
 #    need to return anything.
+# REQUIRED FOR DOCTESTS
+# if __name__ == "__main__":
+#     import doctest
+#     print
+#     result = doctest.testmod()
+#     if not result.failed:
+#         print "ALL TESTS PASSED. GOOD WORK!"
+#     print
+#     
