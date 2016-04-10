@@ -58,7 +58,8 @@ def every_other_item(my_list):
 
        >>> every_other_item(["you", "friend", "are", "very", "good", " ", "at", " ", "coding"])
        ['you', 'are', 'good', 'at', 'coding']
-    """   
+    """
+    # stepping by 2 gives a list every other item in the original
     return my_list[::2]
 
 
@@ -81,10 +82,10 @@ def print_indexes(my_list):
         2 Volvo
 
     """
-    # index i is the current index, 
+    # index i is the current index,
     # my_list[i] is the list item of that current index
     for i in range(0, len(my_list)):
-        print i, my_list[i]       
+        print i, my_list[i]
 
 
 def long_words(word_list):
@@ -97,6 +98,7 @@ def long_words(word_list):
         []
 
     """
+    # if the length of the word is greater than four, it's a long word so grab it
     word_list = [word for word in word_list if len(word) > 4]
     return word_list
 
@@ -110,6 +112,7 @@ def n_long_words(word_list, n):
     >>> n_long_words(["I", "like", "apples", "bananas", "you"], 5)
     ['apples', 'bananas']
     """
+    # if the length of a word is greater than n, grab it
     word_list = [word for word in word_list if len(word) > n]
     return word_list
 
@@ -236,7 +239,7 @@ def sum_numbers(number_list):
         # start at zero because a number plus zero is the number
         total_sum = 0
         for num in number_list:
-
+            # just add each number to the running total
             total_sum += num
         return total_sum
     else:
@@ -290,6 +293,7 @@ def join_strings(word_list):
     """
     # make sure there are words in word_list
     if len(word_list) > 0:
+        # create an empty string because the joined words will be one (kinda long) string
         join_str = ''
         for string in word_list:
             join_str += string
@@ -309,10 +313,15 @@ def average(number_list):
     this raises an error when given an empty list.
     """
     list_len = len(number_list)
+    # if there are numbers in the list
     if list_len > 0:
+        # add up every number in the list to get the total sum
         total_sum = sum_numbers(number_list)
+        # average is the total sum divided by the number of items in the list
+        # converted to float so the division occurs appropriately
         average = total_sum / float(list_len)
         return average
+    # no numbers in the list, no average to find
     else:
         return None
 
@@ -354,10 +363,9 @@ def join_strings_with_comma(list_of_words):
 
 
 def foods_in_common(foods1, foods2):
-    """Using ANY Python data structure presented in the last week, given 2 lists of foods, 
+    """Using ANY Python data structure presented in the last week, given 2 lists of foods,
     return a set of items that are in common between the two. (Don't include any duplicates
     in the output collection.)
-    
     For example:
 
     >>> foods_in_common(["cheese", "bagel", "cake"], ["hummus", "beets", "bagel", "lentils"])
@@ -388,36 +396,35 @@ def reverse_list(my_list):
         ['I', 'love', 'cookies']
 
     """
-    reversed_list = []
-    for i in range(0, len(my_list))
-    i = 
-    for item in my_list:
-        reversed_list.append(item[(len(my_list) - i)])
-        i += 1
-    return reversed_list
+    # start with the last item of the list and move back to the beginning
+    my_list = my_list[::-1]
+
+    return my_list
 
 
 def reverse_list_in_place(my_list):
     """Return the inputted list reversed--WITHOUT creating a new list.
-       This will involve moving the items in my_list to different positions 
+       This will involve moving the items in my_list to different positions
        in the same list.
 
        Do not use the python methed reverse()/reversed()
 
-        >>> reverse_list([1, 2, 3])
+        >>> reverse_list_in_place([1, 2, 3])
         [3, 2, 1]
 
-        >>> reverse_list(["cookies", "love", "I"])
+        >>> reverse_list_in_place(["cookies", "love", "I"])
         ['I', 'love', 'cookies']
 
 
     """
+    # start with the last item in the list and move back to the beginning
+    my_list = my_list[::-1]
 
-    return []
+    return my_list
 
 
 def duplicates(my_list):
-    """Return a list of words which are duplicated in the input list. 
+    """Return a list of words which are duplicated in the input list.
        The returned list should be in ascending order.
 
        >>> duplicates(["apple", "apple", "banana", "cherry", "banana", "apple"])
@@ -426,8 +433,15 @@ def duplicates(my_list):
        >>> duplicates([1, 2, 2, 4, 4, 4, 7])
        [2, 4]
     """
-
-    return []
+    # create a new empty list to store all the duplicates
+    dupe_list = []
+    for item in my_list:
+        # items are duplicates if they're in the list count more than once
+        if my_list.count(item) > 1:
+            # only get unique duplicates. Skip it if it's alread in the new list
+            if item not in dupe_list:
+                dupe_list.append(item)
+    return dupe_list
 
 
 def find_letter_indices(list_of_words, letter):
@@ -446,14 +460,31 @@ def find_letter_indices(list_of_words, letter):
     [0, 1, 2, None]
 
     """
+    # create a new empty list to hold the letter indices
+    letter_indices = []
+    # gets us into each word in the list
+    for word in list_of_words:
+        # get the index of each letter in the word
+        for i in range(len(word)):
+            # if the word at index i matches the letter
+            if word[i] == letter:
+                # add only the index to the end of the letter indices list
+                letter_indices.append(i)
+                # stop after the first occurance of letter in word
+                break
+            # if the index is the last, the letter doesn't occur in this word
+            # so return None
+            elif i == len(word) - 1:
+                letter_indices.append(None)
 
-    return []
+    return letter_indices
+
 
 def largest_n_items(input_list, n):
-    """Given a list of integers along with an integer n, return a 
-    list of the largest n numbers in the input list in ascending order. 
+    """Given a list of integers along with an integer n, return a
+    list of the largest n numbers in the input list in ascending order.
 
-    You can assume that n will be less than the length of the list. 
+    You can assume that n will be less than the length of the list.
 
     For example:
 
@@ -461,8 +492,12 @@ def largest_n_items(input_list, n):
     [59, 700, 6006]
 
     """
+    # make a sorted copy of the initial list so it's lowest to highest
+    # go to the -n index (so n from the end) and bind input list to the
+    # slice of the list from that index to the end
+    input_list = sorted(input_list)[-n:]
 
-    return []
+    return input_list
 
 
 ##############################################################################
@@ -474,4 +509,3 @@ if __name__ == "__main__":
     if not result.failed:
         print "ALL TESTS PASSED. GOOD WORK!"
     print
-    

@@ -25,7 +25,7 @@ def greet(name):
         None
     """
     print "Hi", name
-# print greet('Henry')
+#print greet('Henry')
 
 
 # 3. Write a function that takes two integers and multiplies
@@ -156,46 +156,146 @@ def get_payment_total(meal_price, tip_percentage=15):
 
     return '{:0,.2f}'.format(meal_price)
 
-print get_payment_total(36.98)
+#print get_payment_total(36.98)
 
 # 9. Write a function that takes an integer as an argument and
 #    returns two pieces of information as strings ---
 #    "Positive" or "Negative" and "Even" or "Odd". The two strings
 #	 should be returned in a list.
-#
-# 	Then, write code that shows the calling of this function
-# 	on a number and unpack what is returned into two
-# 	variables --- sign and parity (whether it's positive
-# 	or negative). Print sign and parity.
+def get_int_info(number):
+    """ Takes an integer, returns list of:
+        "Positive" or "Negative"
+        "Even" or "Odd"
+        >>>get_int_info(-84)
+        ['Negative', 'Even']
+    """
+    int_info = []
+
+    number = str(number)
+
+    if number[0] == "-":
+        int_info.append("Negative")
+    else:
+        int_info.append("Positive")
+
+    number = int(number)
+
+    if number % 2 == 0:
+        int_info.append("Even")
+    else:
+        int_info.append("Odd")
+
+    return int_info
+
+#print get_int_info(-84)
 
 
-################################################################
-# PART TWO
+# # 	Then, write code that shows the calling of this function
+# # 	on a number and unpack what is returned into two
+# # 	variables --- sign and parity (whether it's positive
+# # 	or negative). Print sign and parity.
+def get_sign_and_parity(number):
+    """Given a number, prints the sign and parity of that number.
+        Takes no arguments, returns None.
+        >>>get_sign_and_parity()
+        >>>'Please enter an integer: '
+        5
+        'The sign is + and the number is Positive.'
+    """
+    number_info = get_int_info(number)
+    if number_info[0] == "Positive":
+        print "The sign is + and the parity is positive."
+    else:
+        print "The sign is - and the party is negative."
+
+#print get_sign_and_parity(-1024)
 
 
-# 1. We have some code which is meant to calculate an item cost
-#    by adding tax. Tax is normally 5% but it's higher in
-#    California (7%).
-#
-#    Turn this into a function. Your function will pass in
-#    the default tax amount (5%), a state abbreviaton, and the
-#    default tax amount as parameters.
-#    If the state is California, apply a 7% tax within the function.
-#    Your function should return the total cost of the item including tax.
+# ################################################################
+# # PART TWO
+
+
+# # 1. We have some code which is meant to calculate an item cost
+# #    by adding tax. Tax is normally 5% but it's higher in
+# #    California (7%).
+# #
+# #    Turn this into a function. Your function will pass in
+# #    the default tax amount (5%), a state abbreviaton, and the
+# #    default tax amount as parameters.
+# #    If the state is California, apply a 7% tax within the function.
+# #    Your function should return the total cost of the item including tax.
+def get_item_cost(state, item_cost, tax_percent=5):
+    """Takes a state abbreviation string, item cost price and integer denoting tax percentage
+        Returns the cost of an item with appropriate state tax included
+    """
+    # for states that aren't California
+    if state.upper() != 'CA':
+        # convert percentage to decimal for ease in multiplying
+        tax_decimal = tax_percent * 0.01
+        # The item cost times the rate of the tax decimal plus one produces full meal price
+        item_cost = item_cost * (tax_decimal + 1)
+    else:
+        # the state is California, so the tax is 7%
+        tax_percent = 7
+        # convert percentage to decimal for ease in multiplying
+        tax_decimal = tax_percent * 0.01
+        item_cost = item_cost * (tax_decimal + 1)
+
+    return item_cost
+
+#print get_item_cost('ca', 45.00)
 
 # 2. Turn the block of code from the directions into a function.
 #	 Take a name and a job title as parameters, making it so the
 # 	 job title defaults to "Engineer" if a job title is not passed in.
 #	 Return the person's title and name.
+def get_employee_info(name, title="Engineer"):
+    """Takes a name and job title, returns a list of those values
+        >>> get_employee_info("Katie Simmons", "Software Engineer")
+        ['Software Engineer', 'Katie Simmons']
+        Providing only the name argument will default the title to "Engineer".
+        >>> get_employee_info('Katie Simmons')
+        ['Engineer', 'Katie Simmons']
+    """
+    print title, name
+    return [title, name]
+# print get_employee_info("Jane Hacker")
 
-# 3. Given a receiver's name, receiver's job title, and sender's name, print the following letter:      
+
+# 3. Given a receiver's name, receiver's job title, and sender's name, print the following letter:
 #       Dear JOB_TITLE RECEIVER_NAME, I think you are amazing! Sincerely,
-#       SENDER_NAME. 
+#       SENDER_NAME.
 #    Use the function from #2 to construct the full title for the letter's greeting.
+def generate_letter(receiver_name, sender_name):
+    """Takes two strings - the names of a sender and a receiver - and prints a form letter.
+        Returns None.
+        >>> generate_letter("Jane Hacker", "Sarah Developer")
+        'Dear Jane Hacker, I think you are amazing'
+        'Sincerely, Sarah Developer'
+        None
+    """
+    receiver_info = get_employee_info(receiver_name)
+    receiver_name = receiver_info[0]
+    receiver_title = receiver_info[1]
+    print "Dear %s %s, I think you are amazing!\n Sincerely, %s" % (receiver_title, receiver_name, sender_name)
+
+
+#print generate_letter("Jane Hacker", "Sarah Developer")
 
 # 4. Turn the block of code from the directions into a function. This
 #    function will take a number and append it to *numbers*. It doesn't
 #    need to return anything.
+def make_number_list(numbers_list, number):
+    """Takes a list and an int, appends the number to the list, and returns None.
+        >>> make_number_list([1, 2], 3)
+        [1, 2, 3]
+        None
+    """
+    numbers_list.append(number)
+    #print numbers_list
+
+#print make_number_list([1, 2], 3)
+
 # REQUIRED FOR DOCTESTS
 # if __name__ == "__main__":
 #     import doctest
@@ -203,5 +303,3 @@ print get_payment_total(36.98)
 #     result = doctest.testmod()
 #     if not result.failed:
 #         print "ALL TESTS PASSED. GOOD WORK!"
-#     print
-#     
