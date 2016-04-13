@@ -57,7 +57,7 @@ def repeat_string(input_str, repeat_int):
        >>>repeat_string("hufflepuff", 2.5)
        'hufflepuffhufflepuff'
     """
-    print input_str * int(repeat_int)
+    print input_str * repeat_int
 #print repeat_string("hello", 5)
 
 
@@ -102,12 +102,7 @@ def divisible_by_3(number):
         True
     """
     number = int(number)
-    if number % 3 == 0:
-        return True
-    elif number % 3 != 0:
-        return False
-    else:
-        print "That wasn't even a number!"
+    return number % 3 == 0
 
 #print divisible_by_3(3.56469191)
 
@@ -228,6 +223,9 @@ def get_item_cost(state, item_cost, tax_percent=5):
     """Takes a state abbreviation string, item cost price and integer denoting tax percentage
         Returns the cost of an item with appropriate state tax included
     """
+    # code can be tightened by checking state, and if California, redefining the tax rate 
+    # to be 7%, and then the formula need only appear once.
+
     # for states that aren't California
     if state.upper() != 'CA':
         # convert percentage to decimal for ease in multiplying
@@ -274,6 +272,8 @@ def generate_letter(receiver_name, sender_name):
         'Sincerely, Sarah Developer'
         None
     """
+    # this function should also take title, and pass name and title to the previous function
+
     receiver_info = get_employee_info(receiver_name)
     receiver_name = receiver_info[0]
     receiver_title = receiver_info[1]

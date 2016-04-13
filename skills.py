@@ -136,6 +136,9 @@ def smallest_int(number_list):
         True
 
     """
+    # can save one step by starting at the second element in the for loop 
+    # since the first is the smallest by assumption; 
+
     # if the list isn't empty
     if len(number_list) > 0:
         # so we can compare the first int to itself
@@ -146,7 +149,7 @@ def smallest_int(number_list):
         # if it's less than or equal to the current smallest_int
         # rebind smallest_int to the number
         for num in number_list:
-            if num <= smallest_int:
+            if num < smallest_int:
                 smallest_int = num
             else:
                 continue
@@ -173,6 +176,9 @@ def largest_int(number_list):
         True
 
     """
+    #can save one step by starting at the second element in the for loop
+    #since the first is the smallest by assumption;
+
     # if the list isn't empty
     if len(number_list) > 0:
         # so we can compare the first int to itself
@@ -183,7 +189,7 @@ def largest_int(number_list):
         # if it's less than or equal to the current largest_int
         # rebind largest_int to the number
         for num in number_list:
-            if num >= largest_int:
+            if num > largest_int:
                 largest_int = num
             else:
                 continue
@@ -339,6 +345,9 @@ def join_strings_with_comma(list_of_words):
         'Pretzel'
 
     """
+    #would fail if word list has duplicates of last word elsewhere!
+    #Better to append comma and then word in the loop
+
     # the list is empty, just return an empty string
     if len(list_of_words) == 0:
         return ""
@@ -417,8 +426,12 @@ def reverse_list_in_place(my_list):
 
 
     """
-    # start with the last item in the list and move back to the beginning
-    my_list = my_list[::-1]
+    # implementation is NOT in-place
+    # WTF would in-place implementation look like? keeping vals but changing indices?
+    list_len = len(my_list)
+
+    for i in range(list_len//2):
+        my_list[i], my_list[list_len - 1 - i] = my_list[list_len - 1 - i], my_list[i]
 
     return my_list
 
@@ -433,13 +446,14 @@ def duplicates(my_list):
        >>> duplicates([1, 2, 2, 4, 4, 4, 7])
        [2, 4]
     """
+    #the nested 'if' conditionals can be combined into one 'if' with 'and'
+    #also, it is possible to avoid using the count method if you maintain a collection of unique elements as well !
+
     # create a new empty list to store all the duplicates
     dupe_list = []
     for item in my_list:
         # items are duplicates if they're in the list count more than once
-        if my_list.count(item) > 1:
-            # only get unique duplicates. Skip it if it's alread in the new list
-            if item not in dupe_list:
+        if my_list.count(item) > 1 and item not in dupe_list:
                 dupe_list.append(item)
     return dupe_list
 
@@ -460,6 +474,8 @@ def find_letter_indices(list_of_words, letter):
     [0, 1, 2, None]
 
     """
+    # the elif line can be replaced by a check to see whether the character exists in the string - avoid "index logic" when possible
+
     # create a new empty list to hold the letter indices
     letter_indices = []
     # gets us into each word in the list
